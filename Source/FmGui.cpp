@@ -117,7 +117,7 @@ static constexpr std::stack<FmGuiMessage>::size_type
 		messageStack.pop(); \
 	} \
 	else { \
-		if (messageStack.top().content != CONTENT) { \
+		if ( messageStack.empty() || messageStack.top().content != CONTENT) { \
 			messageStack.emplace( \
 				FmGuiMessage( \
 					SEVERITY, \
