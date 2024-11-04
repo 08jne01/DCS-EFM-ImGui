@@ -98,6 +98,7 @@ static FmGuiInputRoutinePtr pInputRoutine = nullptr;
 // static constexpr ImGuiConfigFlags imGuiConfigFlags =
 // 	ImGuiConfigFlags_NavNoCaptureKeyboard;
 // static constexpr const char *imGuiConfigFileName = "imgui.ini";
+static FmGuiRoutinePtr pImGuiSetup = nullptr;
 static ImGuiContext *pImGuiContext = nullptr;
 #if defined FMGUI_ENABLE_IMPLOT
 static ImPlotContext *pImPlotContext = nullptr;
@@ -141,6 +142,12 @@ void
 FmGui::SetInputRoutinePtr(FmGuiInputRoutinePtr pInputRoutine)
 {
 	FmGui::pInputRoutine = pInputRoutine;
+}
+
+void
+FmGui::SetImGuiSetupRoutinePtr( FmGuiRoutinePtr pRoutine )
+{
+	pImGuiSetup = pRoutine;
 }
 
 void
@@ -488,6 +495,11 @@ FmGui::SwapChainPresentImpl(IDXGISwapChain *pSwapChain, UINT syncInterval,
 			ImGui::StyleColorsLight();
 			break;
 		}
+
+		imGuiIO.ConfigInputTrickleEventQueue = false;
+
+		if ( pImGuiSetup )
+			pImGuiSetup();
 
 		// Get the IDXGISwapChain's description.
 		DXGI_SWAP_CHAIN_DESC swapChainDesc;

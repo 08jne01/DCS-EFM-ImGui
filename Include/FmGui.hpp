@@ -192,6 +192,10 @@ void SetRoutinePtr(FmGuiRoutinePtr pRoutine);
  * https://docs.microsoft.com/en-us/windows/win32/learnwin32/keyboard-input
  */
 void SetInputRoutinePtr(FmGuiInputRoutinePtr pInputRoutine);
+
+
+void SetImGuiSetupRoutinePtr( FmGuiRoutinePtr pRoutine );
+
 /*
  * Set all widget visibility and return previous value.
  */
